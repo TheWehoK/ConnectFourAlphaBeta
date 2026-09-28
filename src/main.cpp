@@ -1,6 +1,7 @@
 #include "Board.h"
 #include "AI.h"
 #include <iostream>
+#include <limits> 
 
 int main() {
     Board board;
@@ -13,13 +14,22 @@ int main() {
 
     while (true) {
         int col;
-        std::cout << "Your move: ";
-        std::cin >> col;
-
-        if (col < 0 || col > 6 || !board.dropPiece(col, human)) {
-            std::cout << "Invalid move, try again.\n";
-            continue;
+    std::cout << "Your move: ";
+    if (!(std::cin >> col)) {
+        if (std::cin.eof()) {            // input stream closed, so quit instead of looping
+            std::cout << "\nNo input available, exiting.\n";
+            break;
         }
+        std::cin.clear();                // reset the failed state
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // throw away the bad text
+        std::cout << "Please enter a number from 0 to 6.\n";
+        continue;
+}
+
+if (col < 0 || col > 6 || !board.dropPiece(col, human)) {
+    std::cout << "Invalid move, try again.\n";
+    continue;
+}
 
         board.print();
         if (board.checkWin(human)) { std::cout << "You win!\n"; break; }
