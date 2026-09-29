@@ -11,3 +11,9 @@ add_executable(connect_four
     src/Board.cpp
     src/AI.cpp
 )
+
+add_executable(tests
+    tests/test_board.cpp
+    src/Board.cpp
+    src/AI.cpp
+)
