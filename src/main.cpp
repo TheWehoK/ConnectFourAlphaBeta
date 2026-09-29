@@ -28,6 +28,12 @@ Options parseArgs(int argc, char* argv[]) {
             exit(0);
         }
     }
+
+    if (opts.depth < 1) {
+        std::cout << "Depth must be at least 1. Using depth 1.\n";
+        opts.depth = 1;
+    }
+
     return opts;
 }
 

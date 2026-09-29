@@ -77,7 +77,7 @@ int AI::evaluate(const Board& board) const {
 
 int AI::minimax(Board board, int depth, bool maximizing) {
     nodesExplored++;
-    if (depth == 0 || board.checkWin(aiPlayer) || board.checkWin(opponent) || board.isBoardFull())
+    if (depth <= 0 || board.checkWin(aiPlayer) || board.checkWin(opponent) || board.isBoardFull())
         return evaluate(board);
 
     auto moves = board.getLegalMoves();
@@ -115,7 +115,7 @@ int AI::getBestMoveMinimax(Board board) {
 
 int AI::alphaBeta(Board board, int depth, int alpha, int beta, bool maximizing) {
     nodesExplored++;
-    if (depth == 0 || board.checkWin(aiPlayer) || board.checkWin(opponent) || board.isBoardFull())
+    if (depth <= 0 || board.checkWin(aiPlayer) || board.checkWin(opponent) || board.isBoardFull())
         return evaluate(board);
 
     auto moves = board.getLegalMoves();
