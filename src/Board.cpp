@@ -65,14 +65,14 @@ bool Board::checkWin(Cell player) const {
                 grid[col][row+2] == player && grid[col][row+3] == player)
                 return true;
 
-    // Diagonal /
+    // Diagonal up left
     for (int col = 0; col <= COLS - 4; col++)
         for (int row = 0; row <= ROWS - 4; row++)
             if (grid[col][row] == player && grid[col+1][row+1] == player &&
                 grid[col+2][row+2] == player && grid[col+3][row+3] == player)
                 return true;
 
-    // Diagonal \    
+    // Diagonal down right    
     for (int col = 0; col <= COLS - 4; col++)
         for (int row = 3; row < ROWS; row++)
             if (grid[col][row] == player && grid[col+1][row-1] == player &&

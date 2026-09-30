@@ -39,6 +39,7 @@ int AI::evaluate(const Board& board) const {
     int centerCol = COLS / 2;
     for (int row = 0; row < ROWS; row++)
         if (board.getCell(centerCol, row) == aiPlayer) total += 6;
+        else if (board.getCell(centerCol, row) == opponent) total -= 6;
 
     // Horizontal windows
     for (int col = 0; col <= COLS - 4; col++)
