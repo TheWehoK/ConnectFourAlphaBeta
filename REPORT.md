@@ -33,7 +33,7 @@ The tool is a playable terminal game (`connect_four`). A human plays as Red, the
 - After each AI move, the tool prints how many positions were explored to reach that decision, so the effect of pruning is visible during normal play.
 **Worked example:**
  (My not great game against the alpha-beta pruned AI)
-'''.\build\debug\connect_four.exe --depth 6 --first ai --algo alphabeta
+```.\build\debug\connect_four.exe --depth 6 --first ai --algo alphabeta
 Connect Four - depth 6, algorithm: alpha-beta, AI moves first
 You are R. Enter a column (0-6) to drop your piece.
 
@@ -230,7 +230,7 @@ AI plays column 4 (explored 372 nodes)
 . Y Y R R Y . 
 . Y R Y R R R 
 
-AI wins!'''
+AI wins!```
  
 ---
  
