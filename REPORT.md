@@ -32,8 +32,205 @@ The tool is a playable terminal game (`connect_four`). A human plays as Red, the
 - `--algo alphabeta|minimax` lets the same game be run with either search function.
 - After each AI move, the tool prints how many positions were explored to reach that decision, so the effect of pruning is visible during normal play.
 **Worked example:**
- 
-ADD HERE
+ (My not great game against the alpha-beta pruned AI)
+.\build\debug\connect_four.exe --depth 6 --first ai --algo alphabeta
+Connect Four - depth 6, algorithm: alpha-beta, AI moves first
+You are R. Enter a column (0-6) to drop your piece.
+
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+
+AI plays column 3 (explored 15500 nodes)
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . Y . . . 
+
+Your move (0-6): 3
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . R . . . 
+. . . Y . . . 
+
+AI plays column 3 (explored 15316 nodes)
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . Y . . . 
+. . . R . . . 
+. . . Y . . . 
+
+Your move (0-6): 3
+. . . . . . . 
+. . . . . . . 
+. . . R . . . 
+. . . Y . . . 
+. . . R . . . 
+. . . Y . . . 
+
+AI plays column 1 (explored 9589 nodes)
+. . . . . . . 
+. . . . . . . 
+. . . R . . . 
+. . . Y . . . 
+. . . R . . . 
+. Y . Y . . . 
+
+Your move (0-6): 2
+. . . . . . . 
+. . . . . . . 
+. . . R . . . 
+. . . Y . . . 
+. . . R . . . 
+. Y R Y . . . 
+
+AI plays column 1 (explored 7777 nodes)
+. . . . . . . 
+. . . . . . . 
+. . . R . . . 
+. . . Y . . . 
+. Y . R . . . 
+. Y R Y . . . 
+
+Your move (0-6): 1
+. . . . . . . 
+. . . . . . . 
+. . . R . . . 
+. R . Y . . . 
+. Y . R . . . 
+. Y R Y . . . 
+
+AI plays column 1 (explored 11722 nodes)
+. . . . . . . 
+. . . . . . . 
+. Y . R . . . 
+. R . Y . . . 
+. Y . R . . . 
+. Y R Y . . . 
+
+Your move (0-6): 5
+. . . . . . . 
+. . . . . . . 
+. Y . R . . . 
+. R . Y . . . 
+. Y . R . . . 
+. Y R Y . R . 
+
+AI plays column 2 (explored 14375 nodes)
+. . . . . . . 
+. . . . . . . 
+. Y . R . . . 
+. R . Y . . . 
+. Y Y R . . . 
+. Y R Y . R . 
+
+Your move (0-6): 2
+. . . . . . . 
+. . . . . . . 
+. Y . R . . . 
+. R R Y . . . 
+. Y Y R . . . 
+. Y R Y . R . 
+
+AI plays column 3 (explored 11106 nodes)
+. . . . . . . 
+. . . Y . . . 
+. Y . R . . . 
+. R R Y . . . 
+. Y Y R . . . 
+. Y R Y . R . 
+
+Your move (0-6): 2
+. . . . . . . 
+. . . Y . . . 
+. Y R R . . . 
+. R R Y . . . 
+. Y Y R . . . 
+. Y R Y . R . 
+
+AI plays column 2 (explored 7351 nodes)
+. . . . . . . 
+. . Y Y . . . 
+. Y R R . . . 
+. R R Y . . . 
+. Y Y R . . . 
+. Y R Y . R . 
+
+Your move (0-6): 6
+. . . . . . . 
+. . Y Y . . . 
+. Y R R . . . 
+. R R Y . . . 
+. Y Y R . . . 
+. Y R Y . R R 
+
+AI plays column 5 (explored 15868 nodes)
+. . . . . . . 
+. . Y Y . . . 
+. Y R R . . . 
+. R R Y . . . 
+. Y Y R . Y . 
+. Y R Y . R R 
+
+Your move (0-6): 4
+. . . . . . . 
+. . Y Y . . . 
+. Y R R . . . 
+. R R Y . . . 
+. Y Y R . Y . 
+. Y R Y R R R 
+
+AI plays column 3 (explored 12983 nodes)
+. . . Y . . . 
+. . Y Y . . . 
+. Y R R . . . 
+. R R Y . . . 
+. Y Y R . Y . 
+. Y R Y R R R 
+
+Your move (0-6): 3
+Invalid move, try again.
+Your move (0-6): 4
+. . . Y . . . 
+. . Y Y . . . 
+. Y R R . . . 
+. R R Y . . . 
+. Y Y R R Y . 
+. Y R Y R R R 
+
+AI plays column 1 (explored 2464 nodes)
+. . . Y . . . 
+. Y Y Y . . . 
+. Y R R . . . 
+. R R Y . . . 
+. Y Y R R Y . 
+. Y R Y R R R 
+
+Your move (0-6): 4
+. . . Y . . . 
+. Y Y Y . . . 
+. Y R R . . . 
+. R R Y R . . 
+. Y Y R R Y . 
+. Y R Y R R R 
+
+AI plays column 4 (explored 372 nodes)
+. . . Y . . . 
+. Y Y Y . . . 
+. Y R R Y . . 
+. R R Y R . . 
+. Y Y R R Y . 
+. Y R Y R R R 
+
+AI wins!
  
 ---
  
@@ -51,7 +248,8 @@ I used Claude for most of the implementation: the `Board` and `AI` classes, the 
  
 1. **Missing header declaration.** When Claude added the `scoreWindow` helper function to `AI.cpp` for the evaluation function, it only mentioned in passing that the declaration also needed adding to `AI.h`, rather than giving the full updated header. I missed this, tried to build, and got a "not defined" error. Separately, when I added the declaration myself, I wrote `ScoreWindow` (capital S) while the `.cpp` file used `scoreWindow` (lowercase); these were treated as two different functions, and I got the same error again until I matched the casing exactly.
 2. **The depth-0 bug.** Claude's original CLI code accepted `--depth 0` without validation. The search functions stop when `depth == 0`, but the first recursive call is always made with `maxDepth - 1`, so a depth of 0 immediately became `-1` and then kept decreasing, never hitting exactly 0 again. The only thing left to stop the recursion was the game itself ending, meaning depth 0 turned into "search every possible sequence of moves to the end of the game", and the program just hung with no error message. This wasn't caught by the test suite Claude wrote either, since none of the tests tried an invalid depth. I fixed it by clamping depth to a minimum of 1 in the argument parser, and separately changed the search functions' base case from `depth == 0` to `depth <= 0` so the engine itself cannot run away even if called incorrectly again in the future.
-3. **Benchmark** Claude assumed that I also needed to do a benchmark like in the other tracks to get direct data from it, it thus kept trying to add a benckmark.cpp, making it in the CMakeLists.txt and editing it in my README.
+3. **Benchmark** Claude assumed that I also needed to do a benchmark like in Track A projects to get direct data from it and create an empirical study, it thus kept trying to add a benckmark.cpp, making it in the CMakeLists.txt and referencing it in my README. Thus I removed it and reaffirmed to it that I need the tool itself, not an empirical study.
+
 **What I understood versus what I took on trust:**
 - I understand the board representation, the win logic, and minimax/alpha-beta. I can confidently explain why the `alpha >= beta` check is the entire pruning mechanism and why it never changes the chosen move.
 - I don't fully understand why Claude used the specific numbers it did for the evaluation function, for example the 50 and 60. I understand these numbers need to be higher to weigh more heavily, but I don't know why it chose those specific amounts. I also don't fully understand CMake, having never used it before this project. I know it generates files of some sort to help with building, but not the details of how.
