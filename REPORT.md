@@ -29,8 +29,8 @@ The tool is a playable terminal game (`connect_four`). A human plays as Red, the
 **Interface decisions:**
 - `--depth N` controls how many moves ahead the AI searches. Depth 0 was originally accepted and caused the search to run away unboundedly (see the AI use section below); it is now rejected with a warning and clamped to a minimum of 1.
 - `--first human|ai` decides who moves first, since testing the AI's opening move is different from testing its response to a human opening.
-- `--algo alphabeta|minimax` lets the same game be run with either search function, which is what makes the node-count comparison in the benchmark possible without maintaining two separate programs.
-- After each AI move, the tool prints how many positions were explored to reach that decision, so the effect of pruning is visible during normal play, not just in the benchmark.
+- `--algo alphabeta|minimax` lets the same game be run with either search function.
+- After each AI move, the tool prints how many positions were explored to reach that decision, so the effect of pruning is visible during normal play.
 **Worked example:**
  
 ADD HERE
@@ -51,6 +51,7 @@ I used Claude for most of the implementation: the `Board` and `AI` classes, the 
  
 1. **Missing header declaration.** When Claude added the `scoreWindow` helper function to `AI.cpp` for the evaluation function, it only mentioned in passing that the declaration also needed adding to `AI.h`, rather than giving the full updated header. I missed this, tried to build, and got a "not defined" error. Separately, when I added the declaration myself, I wrote `ScoreWindow` (capital S) while the `.cpp` file used `scoreWindow` (lowercase); these were treated as two different functions, and I got the same error again until I matched the casing exactly.
 2. **The depth-0 bug.** Claude's original CLI code accepted `--depth 0` without validation. The search functions stop when `depth == 0`, but the first recursive call is always made with `maxDepth - 1`, so a depth of 0 immediately became `-1` and then kept decreasing, never hitting exactly 0 again. The only thing left to stop the recursion was the game itself ending, meaning depth 0 turned into "search every possible sequence of moves to the end of the game", and the program just hung with no error message. This wasn't caught by the test suite Claude wrote either, since none of the tests tried an invalid depth. I fixed it by clamping depth to a minimum of 1 in the argument parser, and separately changed the search functions' base case from `depth == 0` to `depth <= 0` so the engine itself cannot run away even if called incorrectly again in the future.
+3. **Benchmark** Claude assumed that I also needed to do a benchmark like in the other tracks to get direct data from it, it thus kept trying to add a benckmark.cpp, making it in the CMakeLists.txt and editing it in my README.
 **What I understood versus what I took on trust:**
 - I understand the board representation, the win logic, and minimax/alpha-beta. I can confidently explain why the `alpha >= beta` check is the entire pruning mechanism and why it never changes the chosen move.
 - I don't fully understand why Claude used the specific numbers it did for the evaluation function, for example the 50 and 60. I understand these numbers need to be higher to weigh more heavily, but I don't know why it chose those specific amounts. I also don't fully understand CMake, having never used it before this project. I know it generates files of some sort to help with building, but not the details of how.

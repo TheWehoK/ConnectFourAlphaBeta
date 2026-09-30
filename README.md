@@ -25,12 +25,11 @@ cmake -S . -B build
 cmake --build build
 ```
 
-This produces three executables under `build/` (or `build/Debug/` on Windows with
+This produces two executables under `build/` (or `build/Debug/` on Windows with
 Visual Studio):
 
 - `connect_four` — the playable game
 - `tests` — a small suite of correctness tests
-- `benchmark` — compares plain minimax vs alpha-beta on generated positions
 
 ## Running the game
 
