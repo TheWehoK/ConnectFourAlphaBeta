@@ -33,7 +33,7 @@ The tool is a playable terminal game (`connect_four`). A human plays as Red, the
 - After each AI move, the tool prints how many positions were explored to reach that decision, so the effect of pruning is visible during normal play.
 **Worked example:**
  (My not great game against the alpha-beta pruned AI)
-.\build\debug\connect_four.exe --depth 6 --first ai --algo alphabeta
+'''.\build\debug\connect_four.exe --depth 6 --first ai --algo alphabeta
 Connect Four - depth 6, algorithm: alpha-beta, AI moves first
 You are R. Enter a column (0-6) to drop your piece.
 
@@ -230,7 +230,7 @@ AI plays column 4 (explored 372 nodes)
 . Y Y R R Y . 
 . Y R Y R R R 
 
-AI wins!
+AI wins!'''
  
 ---
  
@@ -248,7 +248,7 @@ I used Claude for most of the implementation: the `Board` and `AI` classes, the 
  
 1. **Missing header declaration.** When Claude added the `scoreWindow` helper function to `AI.cpp` for the evaluation function, it only mentioned in passing that the declaration also needed adding to `AI.h`, rather than giving the full updated header. I missed this, tried to build, and got a "not defined" error. Separately, when I added the declaration myself, I wrote `ScoreWindow` (capital S) while the `.cpp` file used `scoreWindow` (lowercase); these were treated as two different functions, and I got the same error again until I matched the casing exactly.
 2. **The depth-0 bug.** Claude's original CLI code accepted `--depth 0` without validation. The search functions stop when `depth == 0`, but the first recursive call is always made with `maxDepth - 1`, so a depth of 0 immediately became `-1` and then kept decreasing, never hitting exactly 0 again. The only thing left to stop the recursion was the game itself ending, meaning depth 0 turned into "search every possible sequence of moves to the end of the game", and the program just hung with no error message. This wasn't caught by the test suite Claude wrote either, since none of the tests tried an invalid depth. I fixed it by clamping depth to a minimum of 1 in the argument parser, and separately changed the search functions' base case from `depth == 0` to `depth <= 0` so the engine itself cannot run away even if called incorrectly again in the future.
-3. **Benchmark** Claude assumed that I also needed to do a benchmark like in Track A projects to get direct data from it and create an empirical study, it thus kept trying to add a benckmark.cpp, making it in the CMakeLists.txt and referencing it in my README. Thus I removed it and reaffirmed to it that I need the tool itself, not an empirical study.
+3. **Benchmark** Claude assumed that I also needed to do a benchmark like in Track A projects to get direct data from it and create an empirical study, it thus kept trying to add a benchmark.cpp, making it in the CMakeLists.txt and referencing it in my README. Thus I removed it and reaffirmed to it that I need the tool itself, not an empirical study.
 
 **What I understood versus what I took on trust:**
 - I understand the board representation, the win logic, and minimax/alpha-beta. I can confidently explain why the `alpha >= beta` check is the entire pruning mechanism and why it never changes the chosen move.
